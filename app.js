@@ -1,17 +1,32 @@
 const express = require('express');
 const createError = require('http-errors');
 const dotenv = require('dotenv').config();
+const cors = require('cors');
+const config = require('config');
 
 const app = express();
 
+if (!config.get('PrivateKey')) {
+  console.error('FATAL ERROR: PrivateKey is not defined.');
+  process.exit(1);
+}
+
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // Initialize DB
 require('./initDB')();
 
-const ProductRoute = require('./Routes/Product.route');
-app.use('/products', ProductRoute);
+const PgsRoute = require('./Routes/Pg.route');
+app.use('/pgs', PgsRoute);
+
+const UsersRoute = require('./Routes/User.route');
+app.use('/user', UsersRoute);
+
+const AuthRoute = require('./Routes/Auth.route');
+app.use('/auth', AuthRoute);
+
 
 //404 handler and pass to error handler
 app.use((req, res, next) => {

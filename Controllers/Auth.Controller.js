@@ -23,6 +23,7 @@ module.exports = {
 
         const token = jwt.sign({ _id: user._id }, config.get('PrivateKey'));
         user.password = undefined;
+        user.token = token;
         res.header('x-auth-token', token).send(user);
 
       }

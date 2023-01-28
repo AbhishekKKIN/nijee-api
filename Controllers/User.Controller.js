@@ -65,6 +65,7 @@ module.exports = {
       if (!user) {
         throw createError(404, 'User does not exist.');
       }
+      user.password = undefined;
       res.send(user);
     } catch (error) {
       console.log(error.message);

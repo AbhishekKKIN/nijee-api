@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const config = require('config');
+const auth = require('./middlewares/auth');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 require('./initDB')();
 
 const PgsRoute = require('./Routes/Pg.route');
-app.use('/pgs', PgsRoute);
+app.use('/pgs', auth.authenticateJWT, PgsRoute);
 
 const UsersRoute = require('./Routes/User.route');
 app.use('/user', UsersRoute);

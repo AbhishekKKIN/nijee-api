@@ -8,6 +8,9 @@ const PgSchema = new Schema({
   },
   beds: {
     type: Number,
+  },
+  bedReservation: {
+    type: Array
   }
 });
 

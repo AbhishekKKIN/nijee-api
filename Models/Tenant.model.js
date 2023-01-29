@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PgSchema = new Schema({
+const TenantSchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  beds: {
+  room_number: {
     type: Number,
   },
-  tenants: [{
+  pg: {
     type: Schema.Types.ObjectId,
-    ref: 'Tenant'
-  }]
+    ref: 'Pg',
+    required: true
+  }
 });
 
-const Product = mongoose.model('pg', PgSchema);
-module.exports = Product;
+const Tenant = mongoose.model('tenant', TenantSchema);
+module.exports = Tenant;

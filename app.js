@@ -25,6 +25,9 @@ app.use('/pgs', auth.authenticateJWT, PgsRoute);
 const UsersRoute = require('./Routes/User.route');
 app.use('/user', UsersRoute);
 
+const TenantsRoute = require('./Routes/Tenant.route');
+app.use('/tenant', auth.authenticateJWT, TenantsRoute);
+
 const AuthRoute = require('./Routes/Auth.route');
 app.use('/auth', AuthRoute);
 

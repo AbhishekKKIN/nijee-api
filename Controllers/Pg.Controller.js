@@ -17,8 +17,8 @@ module.exports = {
 
   createNewPg: async (req, res, next) => {
     try {
-      const product = new Pg(req.body);
-      const result = await product.save();
+      const pg = new Pg(req.body);
+      const result = await pg.save();
       res.send(result);
     } catch (error) {
       console.log(error.message);
@@ -28,35 +28,17 @@ module.exports = {
       }
       next(error);
     }
-
-    /*Or:
-  If you want to use the Promise based approach*/
-    /*
-  const product = new Pg({
-    name: req.body.name,
-    price: req.body.price
-  });
-  product
-    .save()
-    .then(result => {
-      console.log(result);
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err.message);
-    }); 
-    */
   },
 
   findPgById: async (req, res, next) => {
     const id = req.params.id;
     try {
-      const product = await Pg.findById(id);
-      // const product = await Pg.findOne({ _id: id });
-      if (!product) {
+      const pg = await Pg.findById(id);
+      // const pg = await Pg.findOne({ _id: id });
+      if (!pg) {
         throw createError(404, 'Pg does not exist.');
       }
-      res.send(product);
+      res.send(pg);
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
@@ -105,5 +87,15 @@ module.exports = {
       }
       next(error);
     }
+  },
+
+  getTenants: async (req, res, next) => {
+    try {
+      const results = await Pg.find({ _id: req.params.id }).populate("tenants");
+      res.send(results);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+
 };

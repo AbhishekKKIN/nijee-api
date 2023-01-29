@@ -12,6 +12,8 @@ router.post('/', PgController.createNewPg);
 //Get a item by id
 router.get('/:id', PgController.findPgById);
 
+router.get('/:id/tenants', PgController.getTenants);
+
 //Update a item by id
 router.patch('/:id', PgController.updateAPg);
 

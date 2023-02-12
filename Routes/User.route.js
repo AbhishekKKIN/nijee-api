@@ -8,7 +8,7 @@ const { authenticateJWT } = require('../middlewares/auth');
 router.get('/', authenticateJWT, UserController.getAllUsers);
 
 //Create a new item
-router.post('/', UserController.createNewUser);
+router.post('/registration', UserController.createNewUser);
 
 //Get a item by id
 router.get('/:id', authenticateJWT, UserController.findUserById);

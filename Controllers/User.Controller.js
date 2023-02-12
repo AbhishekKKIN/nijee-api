@@ -25,6 +25,8 @@ module.exports = {
       } else {
         const user = new User(req.body);
         const salt = await bcrypt.genSalt(10);
+        user.password = 111;
+        user.token = 111;
         user.password = await bcrypt.hash(user.password, salt);
         const result = await user.save();
         res.send(result);
